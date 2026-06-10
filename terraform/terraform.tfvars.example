@@ -1,0 +1,4 @@
+aws_region       = "us-west-2"
+instance_type    = "t2.medium"
+key_name         = "MinecraftKey"
+allowed_ssh_cidr = "YOUR_PUBLIC_IP/32"
