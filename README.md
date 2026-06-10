@@ -21,8 +21,96 @@ The following tools should be installed:
 
 The project is run from Ubuntu/WSL client on Windows.
 
-##
+## AWS
 
+To run the project pipeline, the user needs access to an AWS account. AWS CLI credentials should be provided and configured with:
+
+```bash
+mkdir -p ~/.aws
+nano ~/.aws/creditentials
+```
+
+Please do not share these credentials anywhere.
+
+The AWS config file should be created with:
+
+nano ~/.aws/config
+
+Example config:
+
+[default]
+region = us-east-1
+output = json
+
+Test AWS access with:
+
+aws sts get-caller-identity
+
+## SSH Key
+You must use a Key Pair to access the project. The private SSH key must be named "MinecraftKey.pem" for the project to run properly. The Key Pair can be obtained by creating a new key pair, or by using an existing key and changing the name.
+
+The private SSH key should be stored in the user’s home `.ssh` directory:
+```bash
+mkdir -p ~/.ssh
+cp /path/to/MinecraftKey.pem ~/.ssh/MinecraftKey.pem
+chmod 400 ~/.ssh/MinecraftKey.pem
+```
+
+
+## Commands to Run
+
+### Clone or Enter Repository
+```bash
+cd Course-Project-2
+```
+
+### Confirm AWS credentials work
+```bash
+aws sts get-caller-identity
+```
+
+### Start the EC2 instance
+```bash
+./scripts/provision_existing.sh
+```
+
+### Configure Minecraft Server
+```bash
+./scripts/configure.sh
+```
+
+### Verify Minecraft Server Integrity
+```bash
+./scripts/test_server.sh
+```
+Expected Output Example:
+PORT STATE SERVICE VERSION
+25565/tcp open minecraft Minecraft 26.1.2
+### Connecting to the Server in Minecraft Client.
+
+Open the Minecraft Launcher, and launch Minecraft with the correct version. (26.1.2)
+Navigate to the Multiplayer page.
+
+Ensure that you have an easy way to access the IP Address.
+**Note:** The Current Minecraft Server IP Address should be in server_ip.txt
+You can view the IP address with:
+```bash
+cat server_ip.txt
+```
+
+Select **Add Server**:
+- Server Name: (Enter whatever server name you'd like!)
+- Server Address: \[EC2 IP Address]
+- **Done**
+
+Connect to the Minecraft Server! 
+
+## Cleanup
+To stop the EC2 instance after testing, run:
+
+```bash
+aws ec2 stop-instances --instance-ids i-0cb8c6544fa08833e
+```
 ## Sources Used:
 
 Creating EC2/ECS/EKS Instances Using Terraform - https://registry.terraform.io/providers/hashicorp/aws/latest/docs
