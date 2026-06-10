@@ -2,7 +2,7 @@
 set -e
 
 if [ ! -f server_ip.txt ]; then
-  echo "server_ip.txt not found. Run ./scripts/provision_existing.sh first."
+  echo "server_ip.txt not found. Run ./scripts/provision.sh first."
   exit 1
 fi
 

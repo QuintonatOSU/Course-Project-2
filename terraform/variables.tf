@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "instance_type" {
   description = "EC2 instance type for the Minecraft server"
   type        = string
-  default     = "t2.medium"
+  default     = "t2.micro"
 }
 
 variable "allowed_ssh_cidr" {
