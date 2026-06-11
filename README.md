@@ -80,9 +80,11 @@ aws sts get-caller-identity
 ```
 
 ### Verify Minecraft Server Integrity
+**Note:** It may take time for the minecraft server to start running. I suggest waiting at least 90-180 seconds before running this command.
 ```bash
 ./scripts/test_server.sh
 ```
+
 Expected Output Example:
 PORT STATE SERVICE VERSION
 25565/tcp open minecraft Minecraft 26.1.2

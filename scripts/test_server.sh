@@ -8,5 +8,8 @@ fi
 
 PUBLIC_IP=$(cat server_ip.txt)
 
+echo "Waiting for Minecraft server to finish starting..."
+sleep 180
+
 echo "Testing Minecraft server at $PUBLIC_IP on port 25565..."
 nmap -sV -Pn -p T:25565 "$PUBLIC_IP"
