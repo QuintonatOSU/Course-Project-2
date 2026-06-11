@@ -2,7 +2,7 @@
 
 ## Background
 
-This project automates the creation and setup of a Minecraft Java Edition Server on AWS. This project is optimized for the prompt provided from Course Project 1 (A friendly and casual office setting). The goal of this project is to automate the process using tools for configuration and infrastructure. The project uses Terraform, Docker, Ansible, AWS CLI, nmap, and shell scripts to function.
+This project automates the creation and setup of a Minecraft Java Edition Server on AWS. This project builds on the prompt provided from Course Project 1 (A friendly and casual office setting). The goal of this project is to automate the process using tools for configuration and infrastructure. The project uses Terraform, Docker, Ansible, AWS CLI, nmap, and shell scripts to function.
 
 The Terraform files were inspired and adapted from https://registry.terraform.io/providers/hashicorp/aws/latest/docs, where I modified code snippets to be better optimized for a minecraft server. 
 
@@ -67,10 +67,10 @@ Terraform uses the public key file to register the key pair with AWS. Ansible us
 ## File Overview
 
 ### scripts/run_project.sh
-Runs scripts/provision.sh, scripts/configure.sh, scripts/test_server.sh in that order respectfully. Outputs some flavor text for organization and flair.
+Runs scripts/provision.sh, scripts/configure.sh, scripts/test_server.sh in that order respectively. Outputs some flavor text for organization and flair.
 
 ### scripts/provision.sh
-Runs the terraform files to create a EC2 instance given specific parameters. Outputs the instance public IPv4 address to server_ip.txt for later use.
+Runs the terraform files to create an EC2 instance given specific parameters. Outputs the instance public IPv4 address to server_ip.txt for later use.
 
 ### scripts/configure.sh
 Takes the IP Address created from scripts/provision.sh. Creates the Ansible inventory file, to run the ansible playbook to create and configure the minecraft server.
@@ -79,7 +79,7 @@ Takes the IP Address created from scripts/provision.sh. Creates the Ansible inve
 Outputs whether or not the minecraft server is reachable at port 25565 (default minecraft port)
 
 ### .gitignore
-Prevents specific files from being commited to GitHub.
+Prevents specific files from being committed to GitHub.
 
 ### terraform/main.tf
 Creates the infrastructure for terraforming, AWS, and EC2 instance creation.
@@ -136,7 +136,7 @@ PORT STATE SERVICE VERSION
 
 ## Connecting to the Server in Minecraft Client.
 
-Open the Minecraft Launcher, and launch Minecraft with the correct version. (26.1.2)
+Open the Minecraft Launcher, and launch a compatible Minecraft Java Edition client version.
 Navigate to the Multiplayer page.
 
 Ensure that you have an easy way to access the IP Address.
