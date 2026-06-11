@@ -7,4 +7,5 @@ ansible/inventory.ini
 .DS_Store
 .vscode/
 *.pem
+server_ip.txt
 
