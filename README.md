@@ -180,4 +180,6 @@ Script Logic and Code Snippets - https://docs.aws.amazon.com/cli/latest/referenc
 
 Bash Command Substitution Documentation - https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html
 
+Visual Studio Code ML Coding Assistant was used for naming consistency and touch ups on some code snippets.
+
 Some tutorial snippets were obtained by my original project (Course Project 1 by Quinton Gonzales)
