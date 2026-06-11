@@ -64,6 +64,36 @@ This creates two files:
 
 Terraform uses the public key file to register the key pair with AWS. Ansible uses the private key file to connect to the EC2 instance.
 
+## File Overview
+
+### scripts/run_project.sh
+Runs scripts/provision.sh, scripts/configure.sh, scripts/test_server.sh in that order respectfully. Outputs some flavor text for organization and flair.
+
+### scripts/provision.sh
+Runs the terraform files to create a EC2 instance given specific parameters. Outputs the instance public IPv4 address to server_ip.txt for later use.
+
+### scripts/configure.sh
+Takes the IP Address created from scripts/provision.sh. Creates the Ansible inventory file, to run the ansible playbook to create and configure the minecraft server.
+
+### scripts/test_server.sh
+Outputs whether or not the minecraft server is reachable at port 25565 (default minecraft port)
+
+### .gitignore
+Prevents specific files from being commited to GitHub.
+
+### terraform/main.tf
+Creates the infrastructure for terraforming, AWS, and EC2 instance creation.
+
+### terraform/variables.tf
+Defines the configurable instance variables
+
+### terraform/outputs.tf
+Prints the needed terraform information.
+
+### ansible/setup_docker_minecraft.yml
+Ansible playbook that installs docker to create a consistent minecraft data directory.
+
+
 
 ## Commands to Run
 
@@ -76,7 +106,13 @@ cd Course-Project-2
 ```bash
 aws sts get-caller-identity
 ```
+### Run the Program
+```bash
+./scripts/run_project.sh
+```
+This should run the complete program. Should this script incur an error, follow the alternate instructions provided below.
 
+## Alternate Instructions (Optional)
 ### Start the EC2 instance
 ```bash
 ./scripts/provision.sh
@@ -97,7 +133,8 @@ Expected Output Example:
 PORT STATE SERVICE VERSION
 25565/tcp open minecraft Minecraft 26.1.2
 
-### Connecting to the Server in Minecraft Client.
+
+## Connecting to the Server in Minecraft Client.
 
 Open the Minecraft Launcher, and launch Minecraft with the correct version. (26.1.2)
 Navigate to the Multiplayer page.
@@ -120,11 +157,11 @@ Connect to the Minecraft Server!
 To stop the EC2 instance after testing, run:
 
 ```bash
-cd terraform
-terraform destroy
-cd ..
+./scripts/cleanup.sh
 ```
 **Note:** You may be asked a yes/no answer to destroy the terraform. Enter: "yes"
+
+
 ## Sources Used:
 
 Creating EC2/ECS/EKS Instances Using Terraform - https://registry.terraform.io/providers/hashicorp/aws/latest/docs
