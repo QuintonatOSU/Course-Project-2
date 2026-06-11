@@ -162,6 +162,9 @@ To stop the EC2 instance after testing, run:
 **Note:** You may be asked a yes/no answer to destroy the terraform. Enter: "yes"
 
 
+## Extra Credit Implementation
+Docker Image: Docker is used and can be seen in implementation output.
+Configure GitHub Actions: 
 ## Sources Used:
 
 Creating EC2/ECS/EKS Instances Using Terraform - https://registry.terraform.io/providers/hashicorp/aws/latest/docs
