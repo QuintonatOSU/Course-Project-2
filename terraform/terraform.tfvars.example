@@ -1,4 +1,4 @@
-aws_region       = "us-west-2"
+aws_region       = "us-east-1"
 instance_type    = "t2.medium"
-key_name         = "MinecraftKey"
 allowed_ssh_cidr = "YOUR_PUBLIC_IP/32"
+public_key_path  = "~/.ssh/minecraft_cp2_key.pub"

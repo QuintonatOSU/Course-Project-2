@@ -4,12 +4,15 @@
   become: yes
 
   tasks:
+    - name: Gather service facts
+      service_facts:
+
     - name: Stop old manual Minecraft systemd service if it exists
       systemd:
         name: minecraft
         state: stopped
         enabled: no
-      ignore_errors: yes
+      when: "'minecraft.service' in ansible_facts.services"
 
     - name: Update apt package cache
       apt:
@@ -47,7 +50,7 @@
         --name minecraft-server
         -p 25565:25565
         -e EULA=TRUE
-        -e MEMORY=512M
+        -e MEMORY=2G
         -v /opt/minecraft-data:/data
         --restart unless-stopped
         itzg/minecraft-server

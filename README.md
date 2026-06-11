@@ -4,13 +4,14 @@
 
 This project automates the creation and setup of a Minecraft Java Edition Server on AWS. This project is optimized for the prompt provided from Course Project 1 (A friendly and casual office setting). The goal of this project is to automate the process using tools for configuration and infrastructure. The project uses Terraform, Docker, Ansible, AWS CLI, nmap, and shell scripts to function.
 
-The Terraform files were inspired and adapted from https://registry.terraform.io/providers/hashicorp/aws/latest/docs, where I modified code snippets to be better optimized for a minecraft server. There were several errors during testing, where I was unable to repeatedly create EC2 instances due to constant shutdown. To remedy this, the working project uses the same EC2 instance from Course Project 1 as its target. Keep in mind that the instance is started through the shell scripts (AWS CLI) and then configured through Ansible.
+The Terraform files were inspired and adapted from https://registry.terraform.io/providers/hashicorp/aws/latest/docs, where I modified code snippets to be better optimized for a minecraft server. 
 
 The final demo does not require ANY manual sshing into the instance OR using the AWS console. I only used the Learner Lab to retrieve authentication details.
 
 ## Requirements
 
-The following tools should be installed:
+The following tools should be used/installed:
+- Ubuntu/WSL or Linux Terminal Client
 - AWS CLI
 - Ansible
 - Docker (Installed by Ansible onto the EC2 Instance)
@@ -27,7 +28,7 @@ To run the project pipeline, the user needs access to an AWS account. AWS CLI cr
 
 ```bash
 mkdir -p ~/.aws
-nano ~/.aws/creditentials
+nano ~/.aws/credentials
 ```
 
 Please do not share these credentials anywhere.
@@ -47,14 +48,21 @@ Test AWS access with:
 aws sts get-caller-identity
 
 ## SSH Key
-You must use a Key Pair to access the project. The private SSH key must be named "MinecraftKey.pem" for the project to run properly. The Key Pair can be obtained by creating a new key pair, or by using an existing key and changing the name.
+You must use a Key Pair to access the project.
 
-The private SSH key should be stored in the user’s home `.ssh` directory:
-```bash
+Create the SSH key with:
+
+``` bash
 mkdir -p ~/.ssh
-cp /path/to/MinecraftKey.pem ~/.ssh/MinecraftKey.pem
-chmod 400 ~/.ssh/MinecraftKey.pem
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/minecraft_cp2_key -N ""
+chmod 400 ~/.ssh/minecraft_cp2_key
 ```
+
+This creates two files:
+~/.ssh/minecraft_cp2_key
+~/.ssh/minecraft_cp2_key.pub
+
+Terraform uses the public key file to register the key pair with AWS. Ansible uses the private key file to connect to the EC2 instance.
 
 
 ## Commands to Run
@@ -71,7 +79,7 @@ aws sts get-caller-identity
 
 ### Start the EC2 instance
 ```bash
-./scripts/provision_existing.sh
+./scripts/provision.sh
 ```
 
 ### Configure Minecraft Server
@@ -88,6 +96,7 @@ aws sts get-caller-identity
 Expected Output Example:
 PORT STATE SERVICE VERSION
 25565/tcp open minecraft Minecraft 26.1.2
+
 ### Connecting to the Server in Minecraft Client.
 
 Open the Minecraft Launcher, and launch Minecraft with the correct version. (26.1.2)
@@ -111,8 +120,11 @@ Connect to the Minecraft Server!
 To stop the EC2 instance after testing, run:
 
 ```bash
-aws ec2 stop-instances --instance-ids i-0cb8c6544fa08833e
+cd terraform
+terraform destroy
+cd ..
 ```
+**Note:** You may be asked a yes/no answer to destroy the terraform. Enter: "yes"
 ## Sources Used:
 
 Creating EC2/ECS/EKS Instances Using Terraform - https://registry.terraform.io/providers/hashicorp/aws/latest/docs
@@ -127,3 +139,5 @@ https://docs.ansible.com/projects/ansible/latest/cli/ansible-playbook.html
 Script Logic and Code Snippets - https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
 
 Bash Command Substitution Documentation - https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html
+
+Some tutorial snippets were obtained by my original project (Course Project 1 by Quinton Gonzales)
